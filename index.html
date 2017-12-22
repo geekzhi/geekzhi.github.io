@@ -139,27 +139,32 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-Hello" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Springboot访问HTML页面" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/20/Hello/">Hello</a>
+      <a class="article-title" href="/2017/12/22/Springboot访问HTML页面/">Springboot访问HTML页面</a>
     </h1>
   
 
         
-        <a href="/2017/12/20/Hello/" class="archive-article-date">
-  	<time datetime="2017-12-20T03:57:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-20</time>
+        <a href="/2017/12/22/Springboot访问HTML页面/" class="archive-article-date">
+  	<time datetime="2017-12-22T02:03:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-22</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Hello World</p>
+        <h1 id="Springboot访问HTML页面"><a href="#Springboot访问HTML页面" class="headerlink" title="Springboot访问HTML页面"></a>Springboot访问HTML页面</h1><p><br></p>
+<p>##1.导包<br>maven:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;spring-boot-starter-thymeleaf&lt;/artifactId&gt;</span><br><span class="line">  &lt;version&gt;1.5.9.RELEASE&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
+<p>gradle:<br><code>compile &#39;org.springframework.boot:spring-boot-starter-thymeleaf:1.5.9.RELEASE&#39;</code></p>
+<p>##2.修改配置文件（application.properties）<br><code>spring.thymeleaf.prefix: classpath:/templates/</code></p>
+<p><strong>然后如果你的html标签格式不标准，会报这个错误：</strong><br><code>thymeleaf Exception parsing document: template=&quot;xxxx&quot;</code><br>需要再加个依赖：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;net.sourceforge.nekohtml&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;nekohtml&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.9.22&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
+<p>以及配置文件（application.properties）：<br><code>spring.thymeleaf.mode=LEGACYHTML5</code></p>
 
       
 
@@ -168,11 +173,33 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/java//" class="article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/20/Hello/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/12/22/Springboot访问HTML页面/">展开全文 >></a>
         </p>
       
 
@@ -285,6 +312,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
