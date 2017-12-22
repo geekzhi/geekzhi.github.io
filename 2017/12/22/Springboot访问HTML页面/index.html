@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Springboot访问HTML页面 | GeekZhang&#39;s Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Springboot访问HTML页面 ##1.导包maven:12345&amp;lt;dependency&amp;gt;  &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;  &amp;lt;artifactId&amp;gt;spring-boot-starter-thymeleaf&amp;lt;/artifactId&amp;gt;  &amp;lt;version&amp;gt;1.5.">
+  <meta name="description" content="Springboot访问HTML页面 1.导包maven:12345&amp;lt;dependency&amp;gt;  &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;  &amp;lt;artifactId&amp;gt;spring-boot-starter-thymeleaf&amp;lt;/artifactId&amp;gt;  &amp;lt;version&amp;gt;1.5.9.">
 <meta name="keywords" content="java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Springboot访问HTML页面">
 <meta property="og:url" content="http://yoursite.com/2017/12/22/Springboot访问HTML页面/index.html">
 <meta property="og:site_name" content="GeekZhang&#39;s Blogs">
-<meta property="og:description" content="Springboot访问HTML页面 ##1.导包maven:12345&amp;lt;dependency&amp;gt;  &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;  &amp;lt;artifactId&amp;gt;spring-boot-starter-thymeleaf&amp;lt;/artifactId&amp;gt;  &amp;lt;version&amp;gt;1.5.">
-<meta property="og:updated_time" content="2017-12-22T02:17:14.515Z">
+<meta property="og:description" content="Springboot访问HTML页面 1.导包maven:12345&amp;lt;dependency&amp;gt;  &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;  &amp;lt;artifactId&amp;gt;spring-boot-starter-thymeleaf&amp;lt;/artifactId&amp;gt;  &amp;lt;version&amp;gt;1.5.9.">
+<meta property="og:updated_time" content="2017-12-22T02:19:05.308Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Springboot访问HTML页面">
-<meta name="twitter:description" content="Springboot访问HTML页面 ##1.导包maven:12345&amp;lt;dependency&amp;gt;  &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;  &amp;lt;artifactId&amp;gt;spring-boot-starter-thymeleaf&amp;lt;/artifactId&amp;gt;  &amp;lt;version&amp;gt;1.5.">
+<meta name="twitter:description" content="Springboot访问HTML页面 1.导包maven:12345&amp;lt;dependency&amp;gt;  &amp;lt;groupId&amp;gt;org.springframework.boot&amp;lt;/groupId&amp;gt;  &amp;lt;artifactId&amp;gt;spring-boot-starter-thymeleaf&amp;lt;/artifactId&amp;gt;  &amp;lt;version&amp;gt;1.5.9.">
   
     <link rel="alternative" href="/atom.xml" title="GeekZhang&#39;s Blogs" type="application/atom+xml">
   
@@ -163,9 +163,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="Springboot访问HTML页面"><a href="#Springboot访问HTML页面" class="headerlink" title="Springboot访问HTML页面"></a>Springboot访问HTML页面</h1><p><br></p>
-<p>##1.导包<br>maven:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;spring-boot-starter-thymeleaf&lt;/artifactId&gt;</span><br><span class="line">  &lt;version&gt;1.5.9.RELEASE&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="1-导包"><a href="#1-导包" class="headerlink" title="1.导包"></a>1.导包</h2><p>maven:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;spring-boot-starter-thymeleaf&lt;/artifactId&gt;</span><br><span class="line">  &lt;version&gt;1.5.9.RELEASE&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
 <p>gradle:<br><code>compile &#39;org.springframework.boot:spring-boot-starter-thymeleaf:1.5.9.RELEASE&#39;</code></p>
-<p>##2.修改配置文件（application.properties）<br><code>spring.thymeleaf.prefix: classpath:/templates/</code></p>
+<h2 id="2-修改配置文件（application-properties）"><a href="#2-修改配置文件（application-properties）" class="headerlink" title="2.修改配置文件（application.properties）"></a>2.修改配置文件（application.properties）</h2><p><code>spring.thymeleaf.prefix: classpath:/templates/</code></p>
 <p><strong>然后如果你的html标签格式不标准，会报这个错误：</strong><br><code>thymeleaf Exception parsing document: template=&quot;xxxx&quot;</code><br>需要再加个依赖：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;net.sourceforge.nekohtml&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;nekohtml&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.9.22&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure></p>
 <p>以及配置文件（application.properties）：<br><code>spring.thymeleaf.mode=LEGACYHTML5</code></p>
 
