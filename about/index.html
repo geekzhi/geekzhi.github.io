@@ -11,7 +11,7 @@
 
     <title>
         
-        Springboot访问HTML页面 - GeekZhang的博客 | GeekZhang&#39;s Blog
+        About - GeekZhang的博客 | GeekZhang&#39;s Blog
         
     </title>
 
@@ -71,7 +71,7 @@
                     <span>存档</span>
                 </a>
             </li>
-            <li >
+            <li  class=active >
                 <a href="/about/">
                     <i class="iconfont icon-guanyu2"></i>
                     <span>关于</span>
@@ -87,10 +87,6 @@
             
         </ul>
     </div>
-    
-        <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Springboot访问HTML页面"><span class="toc-text"><a href="#Springboot&#x8BBF;&#x95EE;HTML&#x9875;&#x9762;" class="headerlink" title="Springboot&#x8BBF;&#x95EE;HTML&#x9875;&#x9762;"></a>Springboot&#x8BBF;&#x95EE;HTML&#x9875;&#x9762;</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-导包"><span class="toc-text"><a href="#1-&#x5BFC;&#x5305;" class="headerlink" title="1.&#x5BFC;&#x5305;"></a>1.&#x5BFC;&#x5305;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-修改配置文件（application-properties）"><span class="toc-text"><a href="#2-&#x4FEE;&#x6539;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF08;application-properties&#xFF09;" class="headerlink" title="2.&#x4FEE;&#x6539;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF08;application.properties&#xFF09;"></a>2.&#x4FEE;&#x6539;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF08;application.properties&#xFF09;</span></a></li></ol></li></ol>
-</div>
     
 </div>
 
@@ -115,45 +111,15 @@
     <div class="index-middle">
         <!-- Main Content -->
         
-
-
-<div class="post-container">
-    <div class="post-title">
-        Springboot访问HTML页面
+<div class="post-content ">
+    
+    
+    <div id="comment-container">
     </div>
-
-    <div class="post-meta">
-        <span class="attr">发布于：<span>2017-12-22 10:03:27</span></span>
-        
-        <span class="attr">标签：/
-        
-        <a class="tag" href="/tags/#java" title="java">java</a>
-        <span>/</span>
-        
-        
-        </span>
-        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
-</span>
-</span>
-    </div>
-    <div class="post-content ">
-        <h1 id="Springboot访问HTML页面"><a href="#Springboot访问HTML页面" class="headerlink" title="Springboot访问HTML页面"></a>Springboot访问HTML页面</h1><h2 id="1-导包"><a href="#1-导包" class="headerlink" title="1.导包"></a>1.导包</h2><p>maven:<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-thymeleaf<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.5.9.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>gradle:<br><code>compile &#39;org.springframework.boot:spring-boot-starter-thymeleaf:1.5.9.RELEASE&#39;</code><br><a id="more"></a></p>
-<h2 id="2-修改配置文件（application-properties）"><a href="#2-修改配置文件（application-properties）" class="headerlink" title="2.修改配置文件（application.properties）"></a>2.修改配置文件（application.properties）</h2><p><code>spring.thymeleaf.prefix: classpath:/templates/</code></p>
-<p><strong>然后如果你的html标签格式不标准，会报这个错误：</strong><br><code>thymeleaf Exception parsing document: template=&quot;xxxx&quot;</code><br>需要再加个依赖：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>net.sourceforge.nekohtml<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>nekohtml<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.9.22<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>以及配置文件（application.properties）：<br><code>spring.thymeleaf.mode=LEGACYHTML5</code></p>
-
-        
-        <br />
-        <div id="comment-container">
-        </div>
-        <div id="disqus_thread"></div>
-
-        <div id="lv-container">
-        </div>
-
+    <div id="lv-container">
     </div>
 </div>
+
     </div>
 </div>
 
@@ -200,7 +166,7 @@
     // We expose some of the variables needed by the front end
     window.hexo_search_path = "search.json"
     window.hexo_root = "/"
-    window.isPost = true
+    window.isPost = false
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>
