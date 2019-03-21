@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="GeekZahng的博客">
+    <meta name="keyword"  content="GeekZahng">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        SpringConfig分布式配置中心 - GeekZhang的博客 | GeekZhang&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 不乱于心，不困于情。不畏将来，不念过往。如此，安好。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>John</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SprinngConfig配置中心入门Demo"><span class="toc-text"><a href="#SprinngConfig&#x914D;&#x7F6E;&#x4E2D;&#x5FC3;&#x5165;&#x95E8;Demo" class="headerlink" title="SprinngConfig&#x914D;&#x7F6E;&#x4E2D;&#x5FC3;&#x5165;&#x95E8;Demo"></a>SprinngConfig&#x914D;&#x7F6E;&#x4E2D;&#x5FC3;&#x5165;&#x95E8;Demo</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#git仓库存放的配置文件："><span class="toc-text"><a href="#git&#x4ED3;&#x5E93;&#x5B58;&#x653E;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF1A;" class="headerlink" title="git&#x4ED3;&#x5E93;&#x5B58;&#x653E;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF1A;"></a>git&#x4ED3;&#x5E93;&#x5B58;&#x653E;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF1A;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务端配置："><span class="toc-text"><a href="#&#x670D;&#x52A1;&#x7AEF;&#x914D;&#x7F6E;&#xFF1A;" class="headerlink" title="&#x670D;&#x52A1;&#x7AEF;&#x914D;&#x7F6E;&#xFF1A;"></a>&#x670D;&#x52A1;&#x7AEF;&#x914D;&#x7F6E;&#xFF1A;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#客户端"><span class="toc-text"><a href="#&#x5BA2;&#x6237;&#x7AEF;" class="headerlink" title="&#x5BA2;&#x6237;&#x7AEF;"></a>&#x5BA2;&#x6237;&#x7AEF;</span></a></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 不乱于心，不困于情。不畏将来，不念过往。如此，安好。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        SpringConfig分布式配置中心
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-03-21 20:04:29</span></span>
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <h1 id="SprinngConfig配置中心入门Demo"><a href="#SprinngConfig配置中心入门Demo" class="headerlink" title="SprinngConfig配置中心入门Demo"></a>SprinngConfig配置中心入门Demo</h1><blockquote>
+<p>中文文档：<a href="https://springcloud.cc/spring-cloud-config.html" target="_blank" rel="noopener">SpingConfig</a></p>
+</blockquote>
+<p> 结构如下图：<br><img src="/2019/03/21/SpringConfig分布式配置中心/图解.png" alt="原理"></p>
+<p> 需要一个git仓库存放配置文件，还需要一个服务端，然后各个客户端去调用服务端获取具体配置。</p>
+<h2 id="git仓库存放的配置文件："><a href="#git仓库存放的配置文件：" class="headerlink" title="git仓库存放的配置文件："></a>git仓库存放的配置文件：</h2><p> <img src="/2019/03/21/SpringConfig分布式配置中心/git.png" alt="git"><br> 命名方式如下：<br> <figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml">/</span><span class="template-variable">&#123;application&#125;</span><span class="xml">/</span><span class="template-variable">&#123;profile&#125;</span><span class="xml">[/</span><span class="template-variable">&#123;label&#125;</span><span class="xml">]</span></span><br><span class="line"><span class="xml">/</span><span class="template-variable">&#123;application&#125;</span><span class="xml">-</span><span class="template-variable">&#123;profile&#125;</span><span class="xml">.yml</span></span><br><span class="line"><span class="xml">/</span><span class="template-variable">&#123;label&#125;</span><span class="xml">/</span><span class="template-variable">&#123;application&#125;</span><span class="xml">-</span><span class="template-variable">&#123;profile&#125;</span><span class="xml">.yml</span></span><br><span class="line"><span class="xml">/</span><span class="template-variable">&#123;application&#125;</span><span class="xml">-</span><span class="template-variable">&#123;profile&#125;</span><span class="xml">.properties</span></span><br><span class="line"><span class="xml">/</span><span class="template-variable">&#123;label&#125;</span><span class="xml">/</span><span class="template-variable">&#123;application&#125;</span><span class="xml">-</span><span class="template-variable">&#123;profile&#125;</span><span class="xml">.properties</span></span><br></pre></td></tr></table></figure></p>
+<p>  本次例子即为{application}-{profile}.yml的命名方式，“config”为客户端对应的应用名，”dev”、”test”、”pro”为对应的profile,<br> 在配置客户端时会用到。</p>
+<h2 id="服务端配置："><a href="#服务端配置：" class="headerlink" title="服务端配置："></a>服务端配置：</h2><p>所需依赖：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-config-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.0.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>application.yml:<br><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">server:</span></span><br><span class="line"><span class="symbol">  port:</span> <span class="number">8888</span></span><br><span class="line"><span class="symbol">spring:</span></span><br><span class="line"><span class="symbol">  cloud:</span></span><br><span class="line"><span class="symbol">    config:</span></span><br><span class="line"><span class="symbol">      server:</span></span><br><span class="line"><span class="symbol">        git:</span></span><br><span class="line"><span class="symbol">          uri:</span> git仓库地址</span><br><span class="line"><span class="symbol">          username:</span> 自行更换</span><br><span class="line"><span class="symbol">          password:</span> 自行更换</span><br></pre></td></tr></table></figure></p>
+<p>启动类添加@EnableConfigServer注解：<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@SpringBootApplication</span></span><br><span class="line"><span class="variable">@EnableConfigServer</span></span><br><span class="line">public class RemoteApplication &#123;</span><br><span class="line"></span><br><span class="line">    <span class="selector-tag">public</span> <span class="selector-tag">static</span> <span class="selector-tag">void</span> <span class="selector-tag">main</span>(String[] args) &#123;</span><br><span class="line">        <span class="selector-tag">SpringApplication</span><span class="selector-class">.run</span>(RemoteApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>启动后访问<a href="http://localhost:8888/config/dev" target="_blank" rel="noopener">http://localhost:8888/config/dev</a> 返回git仓库中的config-dev.yml配置文件内容和其他的一些信息，即说明成功，<br>config为git仓库中配置文件的应用名，dev为配置文件的profile，同理<a href="http://localhost:8888/config/test" target="_blank" rel="noopener">http://localhost:8888/config/test</a><br>、<a href="http://localhost:8888/config/pro" target="_blank" rel="noopener">http://localhost:8888/config/pro</a> 可以读取到上图中我的仓库中的其他两个文件内容：<br><img src="/2019/03/21/SpringConfig分布式配置中心/config1.png" alt="config1"><br>这里推荐火狐浏览器，会自动格式化json数据，看起来十分方便：<br><img src="/2019/03/21/SpringConfig分布式配置中心/config2.png" alt="config2"></p>
+<h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><p>接下来配置客户端<br>所需依赖：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-config<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>这里推荐2.0.1版本的包，用2.1.0可能会引起冲突，也和自身的springboot的版本有关，可自行更换版本。<br>客户端需要在application.yml同级目录下，即src/main/resource下新建 <strong>bootstrap.yml</strong> 文件，<br>配置如下：<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">spring</span>:</span><br><span class="line">  <span class="attribute">application</span>:</span><br><span class="line">    <span class="attribute">name</span>: 对应上方git仓库的配置文件的application</span><br><span class="line">  <span class="attribute">cloud</span>:</span><br><span class="line">    <span class="attribute">config</span>:</span><br><span class="line">      <span class="attribute">uri</span>: <span class="attribute">http</span>:<span class="comment">//localhost:8888</span></span><br><span class="line">      <span class="attribute">profile</span>: 对应上方git仓库配置文件的profile</span><br></pre></td></tr></table></figure></p>
+<p>配置完后，启动项目时，便可以从远程git仓库配置文件中读取配置，然后加载启动。</p>
+<blockquote>
+<p>引申：bootstrap.yml(或bootstrap.profile)会早于application.yml(或application.profile)加载，<br>所以在客户端需要子啊bootstrap.yml中配置springconfig相关配置。</p>
+<p>由于服务端可以直接访问获取配置文件，会造成安全问题，可搭配SpringSecurity等权限控制框架配置服务端权限，SpringConfig<br>也提供了相应的客户端配置参数，客户端的spring.cloud.config.username和spring.cloud.config.password即为用户名<br>和密码的配置。</p>
+</blockquote>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/geekzhi">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://airclouds-blog.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>
