@@ -146,8 +146,8 @@
 <p>这里推荐2.0.1版本的包，用2.1.0可能会引起冲突，也和自身的springboot的版本有关，可自行更换版本。<br>客户端需要在application.yml同级目录下，即src/main/resource下新建 <strong>bootstrap.yml</strong> 文件，<br>配置如下：<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">spring</span>:</span><br><span class="line">  <span class="attribute">application</span>:</span><br><span class="line">    <span class="attribute">name</span>: 对应上方git仓库的配置文件的application</span><br><span class="line">  <span class="attribute">cloud</span>:</span><br><span class="line">    <span class="attribute">config</span>:</span><br><span class="line">      <span class="attribute">uri</span>: <span class="attribute">http</span>:<span class="comment">//localhost:8888</span></span><br><span class="line">      <span class="attribute">profile</span>: 对应上方git仓库配置文件的profile</span><br></pre></td></tr></table></figure></p>
 <p>配置完后，启动项目时，便可以从远程git仓库配置文件中读取配置，然后加载启动。</p>
 <blockquote>
-<p>引申：bootstrap.yml(或bootstrap.profile)会早于application.yml(或application.profile)加载，<br>所以在客户端需要子啊bootstrap.yml中配置springconfig相关配置。</p>
-<p>由于服务端可以直接访问获取配置文件，会造成安全问题，可搭配SpringSecurity等权限控制框架配置服务端权限，SpringConfig<br>也提供了相应的客户端配置参数，客户端的spring.cloud.config.username和spring.cloud.config.password即为用户名<br>和密码的配置。</p>
+<p>引申：bootstrap.yml(或bootstrap.profile)会早于application.yml(或application.profile)加载，所以在客户端需要在bootstrap.yml中配置springconfig相关配置。</p>
+<p>由于服务端可以直接访问获取配置文件，会造成安全问题，可搭配SpringSecurity等权限控制框架配置服务端权限，SpringConfig也提供了相应的客户端配置参数，客户端的spring.cloud.config.username和spring.cloud.config.password即为用户名和密码的配置。</p>
 </blockquote>
 
         
