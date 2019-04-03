@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="GeekZahng的博客">
+    <meta name="keyword"  content="GeekZahng">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        Ribbon负载均衡以及自定义负载均衡策略 - GeekZhang的博客 | GeekZhang&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 不乱于心，不困于情。不畏将来，不念过往。如此，安好。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>GeekZhang</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#NFLoadBalancerRuleClassName-com-netflix-loadbalancer-RoundRobinRule-配置规则-轮询"><span class="toc-text"><a href="#NFLoadBalancerRuleClassName-com-netflix-loadbalancer-RoundRobinRule-&#x914D;&#x7F6E;&#x89C4;&#x5219;-&#x8F6E;&#x8BE2;" class="headerlink" title="NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule #&#x914D;&#x7F6E;&#x89C4;&#x5219; &#x8F6E;&#x8BE2;"></a>NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule #&#x914D;&#x7F6E;&#x89C4;&#x5219; &#x8F6E;&#x8BE2;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NFLoadBalancerRuleClassName-com-netflix-loadbalancer-RetryRule-配置规则-重试"><span class="toc-text"><a href="#NFLoadBalancerRuleClassName-com-netflix-loadbalancer-RetryRule-&#x914D;&#x7F6E;&#x89C4;&#x5219;-&#x91CD;&#x8BD5;" class="headerlink" title="NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RetryRule #&#x914D;&#x7F6E;&#x89C4;&#x5219; &#x91CD;&#x8BD5;"></a>NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RetryRule #&#x914D;&#x7F6E;&#x89C4;&#x5219; &#x91CD;&#x8BD5;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NFLoadBalancerRuleClassName-com-netflix-loadbalancer-WeightedResponseTimeRule-配置规则-响应时间权重"><span class="toc-text"><a href="#NFLoadBalancerRuleClassName-com-netflix-loadbalancer-WeightedResponseTimeRule-&#x914D;&#x7F6E;&#x89C4;&#x5219;-&#x54CD;&#x5E94;&#x65F6;&#x95F4;&#x6743;&#x91CD;" class="headerlink" title="NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule #&#x914D;&#x7F6E;&#x89C4;&#x5219; &#x54CD;&#x5E94;&#x65F6;&#x95F4;&#x6743;&#x91CD;"></a>NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule #&#x914D;&#x7F6E;&#x89C4;&#x5219; &#x54CD;&#x5E94;&#x65F6;&#x95F4;&#x6743;&#x91CD;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NFLoadBalancerRuleClassName-com-geekzhang-server4-configuration-MyTestRule-自定义规则，包路径自行修改"><span class="toc-text"><a href="#NFLoadBalancerRuleClassName-com-geekzhang-server4-configuration-MyTestRule-&#x81EA;&#x5B9A;&#x4E49;&#x89C4;&#x5219;&#xFF0C;&#x5305;&#x8DEF;&#x5F84;&#x81EA;&#x884C;&#x4FEE;&#x6539;" class="headerlink" title="NFLoadBalancerRuleClassName: com.geekzhang.server4.configuration.MyTestRule #&#x81EA;&#x5B9A;&#x4E49;&#x89C4;&#x5219;&#xFF0C;&#x5305;&#x8DEF;&#x5F84;&#x81EA;&#x884C;&#x4FEE;&#x6539;"></a>NFLoadBalancerRuleClassName: com.geekzhang.server4.configuration.MyTestRule #&#x81EA;&#x5B9A;&#x4E49;&#x89C4;&#x5219;&#xFF0C;&#x5305;&#x8DEF;&#x5F84;&#x81EA;&#x884C;&#x4FEE;&#x6539;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NFLoadBalancerRuleClassName-com-netflix-loadbalancer-RoundRobinRule-配置规则-轮询-1"><span class="toc-text"><a href="#NFLoadBalancerRuleClassName-com-netflix-loadbalancer-RoundRobinRule-&#x914D;&#x7F6E;&#x89C4;&#x5219;-&#x8F6E;&#x8BE2;-1" class="headerlink" title="NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule #&#x914D;&#x7F6E;&#x89C4;&#x5219; &#x8F6E;&#x8BE2;"></a>NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule #&#x914D;&#x7F6E;&#x89C4;&#x5219; &#x8F6E;&#x8BE2;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NFLoadBalancerRuleClassName-com-netflix-loadbalancer-RetryRule-配置规则-重试-1"><span class="toc-text"><a href="#NFLoadBalancerRuleClassName-com-netflix-loadbalancer-RetryRule-&#x914D;&#x7F6E;&#x89C4;&#x5219;-&#x91CD;&#x8BD5;-1" class="headerlink" title="NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RetryRule #&#x914D;&#x7F6E;&#x89C4;&#x5219; &#x91CD;&#x8BD5;"></a>NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RetryRule #&#x914D;&#x7F6E;&#x89C4;&#x5219; &#x91CD;&#x8BD5;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NFLoadBalancerRuleClassName-com-netflix-loadbalancer-WeightedResponseTimeRule-配置规则-响应时间权重-1"><span class="toc-text"><a href="#NFLoadBalancerRuleClassName-com-netflix-loadbalancer-WeightedResponseTimeRule-&#x914D;&#x7F6E;&#x89C4;&#x5219;-&#x54CD;&#x5E94;&#x65F6;&#x95F4;&#x6743;&#x91CD;-1" class="headerlink" title="NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule #&#x914D;&#x7F6E;&#x89C4;&#x5219; &#x54CD;&#x5E94;&#x65F6;&#x95F4;&#x6743;&#x91CD;"></a>NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule #&#x914D;&#x7F6E;&#x89C4;&#x5219; &#x54CD;&#x5E94;&#x65F6;&#x95F4;&#x6743;&#x91CD;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NFLoadBalancerRuleClassName-com-geekzhang-server4-configuration-MyTestRule-自定义规则，包路径自行修改-1"><span class="toc-text"><a href="#NFLoadBalancerRuleClassName-com-geekzhang-server4-configuration-MyTestRule-&#x81EA;&#x5B9A;&#x4E49;&#x89C4;&#x5219;&#xFF0C;&#x5305;&#x8DEF;&#x5F84;&#x81EA;&#x884C;&#x4FEE;&#x6539;-1" class="headerlink" title="NFLoadBalancerRuleClassName: com.geekzhang.server4.configuration.MyTestRule #&#x81EA;&#x5B9A;&#x4E49;&#x89C4;&#x5219;&#xFF0C;&#x5305;&#x8DEF;&#x5F84;&#x81EA;&#x884C;&#x4FEE;&#x6539;"></a>NFLoadBalancerRuleClassName: com.geekzhang.server4.configuration.MyTestRule #&#x81EA;&#x5B9A;&#x4E49;&#x89C4;&#x5219;&#xFF0C;&#x5305;&#x8DEF;&#x5F84;&#x81EA;&#x884C;&#x4FEE;&#x6539;</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 不乱于心，不困于情。不畏将来，不念过往。如此，安好。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Ribbon负载均衡以及自定义负载均衡策略
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-04-03 23:30:54</span></span>
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <p>首先看下Ribbon自带的负载均衡策略：</p>
+<table>
+<thead>
+<tr>
+<th>策略名</th>
+<th>策略声明</th>
+<th>策略描述</th>
+<th>实现说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BestAvailableRule</td>
+<td><figure class="highlight plain"><figcaption><span>class BestAvailableRule extends ClientConfigEnabledRoundRobinRule	```|选择一个最小的并发请求的server|逐个考察Server，如果Server被tripped了，则忽略，在选择其中ActiveRequestsCount最小的server	|</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">|AvailabilityFilteringRule	|```public class AvailabilityFilteringRule extends PredicateBasedRule```|过滤掉那些因为一直连接失败的被标记为circuit tripped的后端server，并过滤掉那些高并发的的后端server（active connections 超过配置的阈值）|使用一个AvailabilityPredicate来包含过滤server的逻辑，其实就就是检查status里记录的各个server的运行状态|</span><br><span class="line">|WeightedResponseTimeRule	|``` public class WeightedResponseTimeRule extends RoundRobinRule```|根据相应时间分配一个weight，相应时间越长，weight越小，被选中的可能性越低。|一个后台线程定期的从status里面读取评价响应时间，为每个server计算一个weight。Weight的计算也比较简单responsetime 减去每个server自己平均的responsetime是server的权重。当刚开始运行，没有形成statas时，使用roubine策略选择server。|</span><br><span class="line">|RetryRule	|```public class RetryRule extends AbstractLoadBalancerRule```|对选定的负载均衡策略机上重试机制。|在一个配置时间段内当选择server不成功，则一直尝试使用subRule的方式选择一个可用的server|</span><br><span class="line">|RoundRobinRule	|```public class RoundRobinRule extends AbstractLoadBalancerRule```|roundRobin方式轮询选择server|轮询index，选择index对应位置的server|</span><br><span class="line">|RandomRule	|```public class RandomRule extends AbstractLoadBalancerRule```|随机选择一个server|在index上随机，选择index对应位置的server|</span><br><span class="line">|ZoneAvoidanceRule	|```public class ZoneAvoidanceRule extends PredicateBasedRule```|复合判断server所在区域的性能和server的可用性选择server|使用ZoneAvoidancePredicate和AvailabilityPredicate来判断是否选择某个server，前一个判断判定一个zone的运行性能是否可用，剔除不可用的zone（的所有server），AvailabilityPredicate用于过滤掉连接数过多的Server。|</span><br><span class="line"></span><br><span class="line">&gt;以上表格来源：http://ju.outofmemory.cn/entry/253843</span><br><span class="line"></span><br><span class="line">除此之外，新版的Ribbon还有一些其他自带策略。</span><br><span class="line"></span><br><span class="line">首先添加Ribbon依赖：_（如果使用Feign，则自带了Ribbon包）_</span><br></pre></td></tr></table></figure></td>
+</tr>
+</tbody>
+</table>
+<p><dependency><br>    <groupid>org.springframework.cloud</groupid><br>    <artifactid>spring-cloud-starter-ribbon</artifactid><br></dependency><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">创建配置类：</span><br></pre></td></tr></table></figure></p>
+<p>@Configuration<br>public class RibbonConfiguration {<br>    @Bean<br>    public IRule ribbonRule() {<br>        return new RoundRobinRule();  //这里采用轮询策略<br>    }<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">配置启用类：</span><br></pre></td></tr></table></figure></p>
+<p>@Configuration<br>@RibbonClient(name = “server1”, configuration = RibbonConfiguration.class)<br>public class TestConfiguration {<br>}<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">这里<span class="built_in">name</span>参数为需要负载均衡的服务名，configuration参数指定配置类，这种通过java类配置较为复杂，后面</span><br><span class="line">会介绍通过yml配置文件配置以及对所有服务配置负载均衡的方法。</span><br><span class="line"></span><br><span class="line">到此完成负载均衡的配置，我这里调用的服务server1，如果你已经在eureka注册中心注册了两个<span class="built_in">application</span>.<span class="built_in">name</span>都为</span><br><span class="line">server1的服务，调用时Ribbon会轮询去掉用。</span><br><span class="line"></span><br><span class="line">此外，我们还可以自定义自己的负载均衡策略，此处给一个例子：</span><br></pre></td></tr></table></figure></p>
+<p>public class MyTestRule extends AbstractLoadBalancerRule {</p>
+<pre><code>private int total = 0;            // 总共被调用的次数
+private int currentIndex = 0;    // 当前提供服务索引
+public Server choose(ILoadBalancer lb, Object key) {
+    if (lb == null) {
+        return null;
+    }
+    Server server = null;
+    while (server == null) {
+        if (Thread.interrupted()) {
+            return null;
+        }
+        List&lt;Server&gt; upList = lb.getReachableServers();
+        List&lt;Server&gt; allList = lb.getAllServers();
+        int serverCount = allList.size();
+        if (serverCount == 0) {
+            return null;
+        }
+
+        if (total &lt; 3) {
+            server = upList.get(currentIndex);
+            total++;
+        } else {
+            total = 0;
+            currentIndex++;
+            if (currentIndex &gt;= upList.size()) {
+                currentIndex = 0;
+            }
+        }
+        if (server == null) {
+            Thread.yield();
+            continue;
+        }
+        if (server.isAlive()) {
+            return (server);
+        }
+        server = null;
+        Thread.yield();
+    }
+    return server;
+}
+
+@Override
+public Server choose(Object key) {
+    return choose(getLoadBalancer(), key);
+}
+
+@Override
+public void initWithNiwsConfig(IClientConfig iClientConfig) {
+
+}
+</code></pre><p>}<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">大致意思为每调用服务A三次便会调用相同的服务A2,三次后调用A3一次类推，调用到最大服务次数索引置为<span class="number">0</span></span><br><span class="line">再如此循环。将上述配置类的``` return new RoundRobinRule(); ```改为本类</span><br><span class="line"> ``` return MyTestRule ```即可实现。</span><br><span class="line"> </span><br><span class="line">由于java配置类配置较为繁琐，以下给出application.yml配置方法：</span><br></pre></td></tr></table></figure></p>
+<p>server1:<br>  ribbon:<br>    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #配置规则 随机</p>
+<h1 id="NFLoadBalancerRuleClassName-com-netflix-loadbalancer-RoundRobinRule-配置规则-轮询"><a href="#NFLoadBalancerRuleClassName-com-netflix-loadbalancer-RoundRobinRule-配置规则-轮询" class="headerlink" title="NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule #配置规则 轮询"></a>NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule #配置规则 轮询</h1><h1 id="NFLoadBalancerRuleClassName-com-netflix-loadbalancer-RetryRule-配置规则-重试"><a href="#NFLoadBalancerRuleClassName-com-netflix-loadbalancer-RetryRule-配置规则-重试" class="headerlink" title="NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RetryRule #配置规则 重试"></a>NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RetryRule #配置规则 重试</h1><h1 id="NFLoadBalancerRuleClassName-com-netflix-loadbalancer-WeightedResponseTimeRule-配置规则-响应时间权重"><a href="#NFLoadBalancerRuleClassName-com-netflix-loadbalancer-WeightedResponseTimeRule-配置规则-响应时间权重" class="headerlink" title="NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule #配置规则 响应时间权重"></a>NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule #配置规则 响应时间权重</h1><h1 id="NFLoadBalancerRuleClassName-com-geekzhang-server4-configuration-MyTestRule-自定义规则，包路径自行修改"><a href="#NFLoadBalancerRuleClassName-com-geekzhang-server4-configuration-MyTestRule-自定义规则，包路径自行修改" class="headerlink" title="NFLoadBalancerRuleClassName: com.geekzhang.server4.configuration.MyTestRule #自定义规则，包路径自行修改"></a>NFLoadBalancerRuleClassName: com.geekzhang.server4.configuration.MyTestRule #自定义规则，包路径自行修改</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">此处server1为sercer1服务的负载均衡策略，如果需要全局的负载均衡策略，只需将前缀删掉即可，如下：</span><br></pre></td></tr></table></figure>
+<p>ribbon:<br>  NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #配置规则 随机</p>
+<h1 id="NFLoadBalancerRuleClassName-com-netflix-loadbalancer-RoundRobinRule-配置规则-轮询-1"><a href="#NFLoadBalancerRuleClassName-com-netflix-loadbalancer-RoundRobinRule-配置规则-轮询-1" class="headerlink" title="NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule #配置规则 轮询"></a>NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule #配置规则 轮询</h1><h1 id="NFLoadBalancerRuleClassName-com-netflix-loadbalancer-RetryRule-配置规则-重试-1"><a href="#NFLoadBalancerRuleClassName-com-netflix-loadbalancer-RetryRule-配置规则-重试-1" class="headerlink" title="NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RetryRule #配置规则 重试"></a>NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RetryRule #配置规则 重试</h1><h1 id="NFLoadBalancerRuleClassName-com-netflix-loadbalancer-WeightedResponseTimeRule-配置规则-响应时间权重-1"><a href="#NFLoadBalancerRuleClassName-com-netflix-loadbalancer-WeightedResponseTimeRule-配置规则-响应时间权重-1" class="headerlink" title="NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule #配置规则 响应时间权重"></a>NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule #配置规则 响应时间权重</h1><h1 id="NFLoadBalancerRuleClassName-com-geekzhang-server4-configuration-MyTestRule-自定义规则，包路径自行修改-1"><a href="#NFLoadBalancerRuleClassName-com-geekzhang-server4-configuration-MyTestRule-自定义规则，包路径自行修改-1" class="headerlink" title="NFLoadBalancerRuleClassName: com.geekzhang.server4.configuration.MyTestRule #自定义规则，包路径自行修改"></a>NFLoadBalancerRuleClassName: com.geekzhang.server4.configuration.MyTestRule #自定义规则，包路径自行修改</h1><p>```</p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/geekzhi">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://airclouds-blog.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>
